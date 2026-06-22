@@ -1,16 +1,16 @@
 # Getting Started
 
-Welcome to BentoPDF! This guide will help you get up and running quickly.
+Welcome to LocalPDF! This guide will help you get up and running quickly.
 
 ## What is BentoPDF?
 
-BentoPDF is a free, open-source, privacy-first PDF toolkit that runs **entirely in your browser**. Your files never leave your device—all processing happens locally using WebAssembly (WASM) technology.
+LocalPDF is a free, open-source, privacy-first PDF toolkit that runs **entirely in your browser**. Your files never leave your device—all processing happens locally using WebAssembly (WASM) technology.
 
 ## Quick Start
 
 ### Option 1: Use the Hosted Version
 
-Visit [bentopdf.com](https://bentopdf.com) to use BentoPDF instantly—no installation required.
+Visit [localpdf.org](https://localpdf.org) to use LocalPDF instantly—no installation required.
 
 ### Option 2: Self-Host with Docker
 
@@ -33,7 +33,7 @@ docker compose up -d
 ```
 
 > [!TIP]
-> BentoPDF ships in two builds: the **Self-Hosted build** (`bentopdf-simple`, used above) for internal/team/organization deployments, and the **Commercial build** (`bentopdf:latest`) used by bentopdf.com itself and by commercial license holders running public-facing deployments. Both ship the same PDF tools — the Commercial build adds the bentopdf.com hero, FAQ, testimonials, and footer. If in doubt, use the Self-Hosted build.
+> LocalPDF ships in two builds: the **Self-Hosted build** (`localpdf-simple`, used above) for internal/team/organization deployments, and the **Commercial build** (`localpdf:latest`) used by localpdf.org itself and by commercial license holders running public-facing deployments. Both ship the same PDF tools — the Commercial build adds the localpdf.org hero, FAQ, testimonials, and footer. If in doubt, use the Self-Hosted build.
 
 Then open `http://localhost:3000` in your browser.
 

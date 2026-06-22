@@ -18,7 +18,7 @@
  * - CPDF_SOURCE: Base URL for CoherentPDF files (e.g., https://cdn.example.com/cpdf)
  */
 
-const ALLOWED_ORIGINS = ['https://www.bentopdf.com', 'https://bentopdf.com'];
+const ALLOWED_ORIGINS = ['https://www.localpdf.org', 'https://localpdf.org'];
 
 const MAX_FILE_SIZE_BYTES = 100 * 1024 * 1024;
 
@@ -141,7 +141,7 @@ async function proxyRequest(request, env, sourceBaseUrl, subpath, origin) {
     if (!response) {
       response = await fetch(targetUrl, {
         headers: {
-          'User-Agent': 'BentoPDF-WASM-Proxy/1.0',
+          'User-Agent': 'LocalPDF-WASM-Proxy/1.0',
           Accept: '*/*',
         },
       });
@@ -316,7 +316,7 @@ export default {
     if (pathname === '/' || pathname === '/health') {
       return new Response(
         JSON.stringify({
-          service: 'BentoPDF WASM Proxy',
+          service: 'LocalPDF WASM Proxy',
           version: '1.0.0',
           endpoints: {
             pymupdf: '/pymupdf/*',

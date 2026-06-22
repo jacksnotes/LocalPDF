@@ -30,7 +30,7 @@ const ALLOWED_TSA_HOSTS = new Set([
   'tsa.mesign.com',
 ]);
 
-const ALLOWED_ORIGINS = ['https://www.bentopdf.com', 'https://bentopdf.com'];
+const ALLOWED_ORIGINS = ['https://www.localpdf.org', 'https://localpdf.org'];
 
 const SAFE_CONTENT_TYPES = [
   'application/x-x509-ca-cert',
@@ -388,7 +388,7 @@ export default {
       const upstreamInit = {
         method: request.method,
         headers: {
-          'User-Agent': 'BentoPDF-CertProxy/1.0',
+          'User-Agent': 'LocalPDF-CertProxy/1.0',
         },
       };
 
