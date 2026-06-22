@@ -1,6 +1,6 @@
 {
-    "name": "BentoPDF",
-    "short_name": "BentoPDF",
+    "name": "LocalPDF",
+    "short_name": "LocalPDF",
     "description": "Free online PDF tools - Privacy-first PDF toolkit that works 100% in your browser",
     "start_url": "/",
     "display": "standalone",

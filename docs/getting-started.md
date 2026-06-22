@@ -2,7 +2,7 @@
 
 Welcome to LocalPDF! This guide will help you get up and running quickly.
 
-## What is BentoPDF?
+## What is LocalPDF?
 
 LocalPDF is a free, open-source, privacy-first PDF toolkit that runs **entirely in your browser**. Your files never leave your device—all processing happens locally using WebAssembly (WASM) technology.
 
@@ -25,10 +25,10 @@ Visit [localpdf.org](https://localpdf.org) to use LocalPDF instantly—no instal
 
 ```bash
 # Pull and run the Docker image (self-hosted build)
-docker run -d -p 3000:8080 ghcr.io/alam00000/bentopdf-simple:latest
+docker run -d -p 3000:8080 ghcr.io/alam00000/localpdf-simple:latest
 
 # Or use Docker Compose
-curl -O https://raw.githubusercontent.com/alam00000/bentopdf/main/docker-compose.yml
+curl -O https://raw.githubusercontent.com/alam00000/localpdf/main/docker-compose.yml
 docker compose up -d
 ```
 
@@ -44,8 +44,8 @@ Then open `http://localhost:3000` in your browser.
 
 ```bash
 # Clone the repository
-git clone https://github.com/alam00000/bentopdf.git
-cd bentopdf
+git clone https://github.com/jacksnotes/LocalPDF.git
+cd localpdf
 
 # Install dependencies
 npm install
@@ -67,7 +67,7 @@ npm run dev
 
 ## Browser Support
 
-BentoPDF works best on modern browsers:
+LocalPDF works best on modern browsers:
 
 - ✅ Chrome/Edge 90+
 - ✅ Firefox 90+
@@ -76,5 +76,5 @@ BentoPDF works best on modern browsers:
 ## Next Steps
 
 - [Explore all tools](/tools/)
-- [Self-host BentoPDF](/self-hosting/)
+- [Self-host LocalPDF](/self-hosting/)
 - [Contribute to the project](/contributing)
