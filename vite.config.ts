@@ -219,6 +219,7 @@ function buildCorsProxyAllowedHosts(): Set<string> {
     process.env.VITE_WASM_PYMUPDF_URL,
     process.env.VITE_WASM_GS_URL,
     process.env.VITE_WASM_CPDF_URL,
+    process.env.VITE_WASM_LIBREOFFICE_URL,
     process.env.VITE_TESSERACT_WORKER_URL,
     process.env.VITE_TESSERACT_CORE_URL,
     process.env.VITE_TESSERACT_LANG_URL,

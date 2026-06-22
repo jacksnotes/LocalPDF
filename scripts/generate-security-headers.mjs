@@ -33,6 +33,7 @@ const wasmOrigins = [
   originOf(process.env.VITE_WASM_PYMUPDF_URL) || DEFAULT_WASM_ORIGINS.pymupdf,
   originOf(process.env.VITE_WASM_GS_URL) || DEFAULT_WASM_ORIGINS.gs,
   originOf(process.env.VITE_WASM_CPDF_URL) || DEFAULT_WASM_ORIGINS.cpdf,
+  originOf(process.env.VITE_WASM_LIBREOFFICE_URL) || 'https://cdn.jsdelivr.net',
 ];
 
 const tesseractOrigins = uniq([

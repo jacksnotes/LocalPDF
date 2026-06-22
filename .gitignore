@@ -54,3 +54,4 @@ test
 
 # WASM assets
 public/wasm/
+public/libreoffice-wasm/*.gz

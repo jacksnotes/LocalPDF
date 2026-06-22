@@ -8,7 +8,8 @@
 import { WorkerBrowserConverter } from '@matbee/libreoffice-converter/browser';
 import type { InputFormat } from '@matbee/libreoffice-converter/browser';
 
-const LIBREOFFICE_LOCAL_PATH = import.meta.env.BASE_URL + 'libreoffice-wasm/';
+const LIBREOFFICE_DEFAULT_CDN = 'https://cdn.jsdelivr.net/npm/@matbee/libreoffice-converter@2.5.0/';
+const LIBREOFFICE_BASE_PATH = import.meta.env.VITE_WASM_LIBREOFFICE_URL || LIBREOFFICE_DEFAULT_CDN;
 
 export interface LoadProgress {
   phase: 'loading' | 'initializing' | 'converting' | 'complete' | 'ready';
@@ -28,7 +29,7 @@ export class LibreOfficeConverter {
   private basePath: string;
 
   constructor(basePath?: string) {
-    this.basePath = basePath || LIBREOFFICE_LOCAL_PATH;
+    this.basePath = basePath || LIBREOFFICE_BASE_PATH;
   }
 
   async initialize(onProgress?: ProgressCallback): Promise<void> {
@@ -51,12 +52,13 @@ export class LibreOfficeConverter {
         message: 'Loading conversion engine...',
       });
 
+      const isCDN = this.basePath.startsWith('http://') || this.basePath.startsWith('https://');
       this.converter = new WorkerBrowserConverter({
-        sofficeJs: `${this.basePath}soffice.js`,
-        sofficeWasm: `${this.basePath}soffice.wasm.gz`,
-        sofficeData: `${this.basePath}soffice.data.gz`,
-        sofficeWorkerJs: `${this.basePath}soffice.worker.js`,
-        browserWorkerJs: `${this.basePath}browser.worker.global.js`,
+        sofficeJs: isCDN ? `${this.basePath}wasm/soffice.js` : `${this.basePath}soffice.js`,
+        sofficeWasm: isCDN ? `${this.basePath}wasm/soffice.wasm` : `${this.basePath}soffice.wasm.gz`,
+        sofficeData: isCDN ? `${this.basePath}wasm/soffice.data` : `${this.basePath}soffice.data.gz`,
+        sofficeWorkerJs: isCDN ? `${this.basePath}wasm/soffice.worker.js` : `${this.basePath}soffice.worker.js`,
+        browserWorkerJs: isCDN ? `${this.basePath}dist/browser.worker.global.js` : `${this.basePath}browser.worker.global.js`,
         verbose: false,
         onProgress: (info: {
           phase: string;
