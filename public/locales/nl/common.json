@@ -4,7 +4,7 @@
     "about": "Over",
     "contact": "Contact",
     "licensing": "Licentie",
-    "allTools": "Alle Tools",
+    "allTools": "Alle PDF-tools",
     "docs": "Docs",
     "openMainMenu": "Hoofdmenu openen",
     "language": "Taal",
@@ -12,7 +12,7 @@
     "noLanguagesFound": "Geen talen gevonden"
   },
   "donation": {
-    "message": "Vind je BentoPDF geweldig? Help ons het gratis en open source te houden!",
+    "message": "Vind je LocalPDF geweldig? Help ons het gratis en open source te houden!",
     "button": "Donatie"
   },
   "hero": {
@@ -22,37 +22,38 @@
     "noSignups": "Geen aanmelding",
     "unlimitedUse": "Onbegrenst gebruik",
     "worksOffline": "Werkt offline",
-    "startUsing": "Direct aan de slag"
+    "startUsing": "Direct aan de slag",
+    "mainTitle": "Alle PDF-tools die u nodig heeft op één plek",
+    "subtitle": "Allemaal 100% GRATIS en eenvoudig te gebruiken! Samenvoegen, splitsen, comprimeren en converteren. Geen upload. Geen registratie."
   },
   "usedBy": {
     "title": "Gebruikt door bedrijven en personen werkzaam bij"
   },
   "features": {
-    "title": "Waarom",
-    "bentoPdf": "BentoPDF?",
+    "whyChoose": "Why choose",
     "noSignup": {
-      "title": "Geen aanmelding",
-      "description": "Direct aan de slag, zonder account of e-mails."
+      "title": "No Signup",
+      "desc": "Start instantly, no accounts or emails."
     },
     "noUploads": {
-      "title": "Geen uploads",
-      "description": "100% client-side, jouw bestanden blijven op jouw apparaat."
+      "title": "No Uploads",
+      "desc": "100% client-side, your files never leave your device."
     },
     "foreverFree": {
-      "title": "Voor altijd gratis",
-      "description": "Alle tools, geen proef, geen betaalmuur."
+      "title": "Forever Free",
+      "desc": "All tools, no trials, no paywalls."
     },
     "noLimits": {
-      "title": "Geen beperkingen",
-      "description": "Gebruik het zoveel je wilt, geen verborgen beperkingen."
+      "title": "No Limits",
+      "desc": "Use as much as you want, no hidden caps."
     },
     "batchProcessing": {
-      "title": "Reeksen verwerken",
-      "description": "Verwerk in een keer een onbeperkt aantal PDF's."
+      "title": "Batch Processing",
+      "desc": "Handle unlimited PDFs in one go."
     },
     "lightningFast": {
-      "title": "Bliksemsnel",
-      "description": "Verwerk PDF's direct, zonder wachten of vertraging."
+      "title": "Lightning Fast",
+      "desc": "Process PDFs instantly, without waiting or delays."
     }
   },
   "tools": {
@@ -187,8 +188,8 @@
     "questions": "Vragen",
     "sectionTitle": "Veelgestelde vragen",
     "isFree": {
-      "question": "Is BentoPDF echt gratis?",
-      "answer": "Ja, absoluut. Alle tools op BentoPDF zijn 100% gratis te gebruiken, zonder bestandslimieten, zonder aanmeldingen en zonder watermerken. Wij vinden dat iedereen toegang verdient tot eenvoudige, krachtige PDF-tools zonder betaalmuur."
+      "question": "Is LocalPDF echt gratis?",
+      "answer": "Ja, absoluut. Alle tools op LocalPDF zijn 100% gratis te gebruiken, zonder bestandslimieten, zonder aanmeldingen en zonder watermerken. Wij vinden dat iedereen toegang verdient tot eenvoudige, krachtige PDF-tools zonder betaalmuur."
     },
     "areFilesSecure": {
       "question": "Zijn mijn bestanden veilig? Waar worden ze verwerkt?",
@@ -196,27 +197,27 @@
     },
     "platforms": {
       "question": "Werkt het op Mac, Windows en mobiel?",
-      "answer": "Ja! Omdat BentoPDF volledig in je browser werkt, werkt het op elk besturingssysteem met een moderne webbrowser, inclusief Windows, macOS, Linux, iOS en Android."
+      "answer": "Ja! Omdat LocalPDF volledig in je browser werkt, werkt het op elk besturingssysteem met een moderne webbrowser, inclusief Windows, macOS, Linux, iOS en Android."
     },
     "gdprCompliant": {
-      "question": "Is BentoPDF AVG-conform?",
-      "answer": "Ja. BentoPDF voldoet volledig aan de AVG. Omdat alle bestandsverwerking lokaal in je browser gebeurt en we nooit je bestanden naar een server sturen of verzamelen, hebben wij geen toegang tot je gegevens. Zo houd jij altijd de controle over je documenten."
+      "question": "Is LocalPDF AVG-conform?",
+      "answer": "Ja. LocalPDF voldoet volledig aan de AVG. Omdat alle bestandsverwerking lokaal in je browser gebeurt en we nooit je bestanden naar een server sturen of verzamelen, hebben wij geen toegang tot je gegevens. Zo houd jij altijd de controle over je documenten."
     },
     "dataStorage": {
       "question": "Slaan jullie mijn bestanden op of volgen jullie die?",
-      "answer": "Nee. We slaan je bestanden nooit op, volgen ze niet en houden er geen logboek van bij. Alles wat je op BentoPDF doet, gebeurt in het geheugen van je browser en verdwijnt zodra je de pagina sluit. Er is geen upload, geen geschiedenislogboek en geen servers bij betrokken."
+      "answer": "Nee. We slaan je bestanden nooit op, volgen ze niet en houden er geen logboek van bij. Alles wat je op LocalPDF doet, gebeurt in het geheugen van je browser en verdwijnt zodra je de pagina sluit. Er is geen upload, geen geschiedenislogboek en geen servers bij betrokken."
     },
     "different": {
-      "question": "Wat maakt BentoPDF anders dan andere PDF-tools?",
-      "answer": "De meeste PDF-tools verlangen dat je je bestanden voor verwerking naar een server uploadt. BentoPDF doet dat nooit. Wij gebruiken veilige, moderne webtechnologie om je bestanden direct in je browser te verwerken. Dit betekent snellere prestaties, betere privacy en totale gemoedsrust."
+      "question": "Wat maakt LocalPDF anders dan andere PDF-tools?",
+      "answer": "De meeste PDF-tools verlangen dat je je bestanden voor verwerking naar een server uploadt. LocalPDF doet dat nooit. Wij gebruiken veilige, moderne webtechnologie om je bestanden direct in je browser te verwerken. Dit betekent snellere prestaties, betere privacy en totale gemoedsrust."
     },
     "browserBased": {
       "question": "Hoe zorgt browsergebaseerde verwerking ervoor dat ik veilig blijf?",
-      "answer": "Omdat BentoPDF helemaal in je browser draait, blijven je bestanden altijd op je apparaat. Daardoor hoef je je geen zorgen te maken over hacks, datalekken of ongeoorloofde toegang. Je bestanden zijn altijd van jou."
+      "answer": "Omdat LocalPDF helemaal in je browser draait, blijven je bestanden altijd op je apparaat. Daardoor hoef je je geen zorgen te maken over hacks, datalekken of ongeoorloofde toegang. Je bestanden zijn altijd van jou."
     },
     "analytics": {
-      "question": "Gebruikt BentoPDF cookies of analytics om mij te volgen?",
-      "answer": "We geven om je privacy. BentoPDF houdt geen persoonlijke gegevens bij. We gebruiken Simple Analytics alleen om anonieme bezoekersaantallen te zien. Dit betekent dat we kunnen weten hoeveel mensen onze site bezoeken, maar we weten nooit wie jij bent. Simple Analytics is volledig AVG-conform en respecteert je privacy."
+      "question": "Gebruikt LocalPDF cookies of analytics om mij te volgen?",
+      "answer": "We geven om je privacy. LocalPDF houdt geen persoonlijke gegevens bij. We gebruiken Google Analytics alleen om anonieme bezoekersaantallen te zien. Dit betekent dat we kunnen weten hoeveel mensen onze site bezoeken, maar we weten nooit wie jij bent. Google Analytics is volledig AVG-conform en respecteert je privacy."
     }
   },
   "testimonials": {
@@ -226,11 +227,11 @@
   },
   "support": {
     "title": "Vind je mijn werk leuk?",
-    "description": "BentoPDF is een project van passie, gemaakt om iedereen een gratis, privé en krachtig PDF-gereedschap te bieden. Als je het handig vindt, overweeg dan om de ontwikkeling te steunen. Elke koffie helpt!",
+    "description": "LocalPDF is een project van passie, gemaakt om iedereen een gratis, privé en krachtig PDF-gereedschap te bieden. Als je het handig vindt, overweeg dan om de ontwikkeling te steunen. Elke koffie helpt!",
     "buyMeCoffee": "Koop een kopje koffie voor me"
   },
   "footer": {
-    "copyright": "© 2026 BentoPDF. Alle rechten voorbehouden.",
+    "copyright": "© 2026 LocalPDF. Alle rechten voorbehouden.",
     "version": "Versie",
     "company": "Bedrijf",
     "aboutUs": "Over ons",
@@ -292,9 +293,9 @@
     "philosophy": {
       "label": "Onze kernfilosofie",
       "title": "Privacy First. Altijd.",
-      "description": "In een tijdperk waarin data een handelswaar is, doen wij het net even anders. Alle verwerking voor BentoPDF-tools gebeurt lokaal in je browser. Dat betekent dat je bestanden nooit oop onze servers terechtkomen, dat wij je documenten nooit zien en niets volgen van wat je doet. Je documenten blijven volledig privé, punt. Het is niet zomaar een functie; het is onze basis."
+      "description": "In een tijdperk waarin data een handelswaar is, doen wij het net even anders. Alle verwerking voor LocalPDF-tools gebeurt lokaal in je browser. Dat betekent dat je bestanden nooit oop onze servers terechtkomen, dat wij je documenten nooit zien en niets volgen van wat je doet. Je documenten blijven volledig privé, punt. Het is niet zomaar een functie; het is onze basis."
     },
-    "whyBentopdf": {
+    "whyLocalPDF": {
       "title": "Waarom",
       "speed": {
         "title": "Gemaakt voor snelheid",
@@ -315,7 +316,7 @@
     },
     "cta": {
       "title": "Klaar om te beginnen?",
-      "description": "Sluit je aan bij duizenden gebruikers die BentoPDF vertrouwen voor hun dagelijkse documentbehoeften. Ervaar zelf het verschil dat privacy en prestaties kunnen maken.",
+      "description": "Sluit je aan bij duizenden gebruikers die LocalPDF vertrouwen voor hun dagelijkse documentbehoeften. Ervaar zelf het verschil dat privacy en prestaties kunnen maken.",
       "button": "Ontdek alle tools"
     }
   },

@@ -1,7 +1,26 @@
-<svg width="166" height="166" viewBox="0 0 166 166" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g transform="translate(40, 0)">
-<path d="M56.7848 80.9116L0 25.6211L24.8434 1.43151C26.8037 -0.47717 29.9814 -0.47717 31.9414 1.43151L85.177 53.2662L56.7848 80.9116Z" fill="#A5B4FC"/>
-<path d="M-1.30805e-05 80.7335L21.2939 101.467L42.5878 80.7335L21.2939 60L-1.30805e-05 80.7335Z" fill="#E0E7FF"/>
-<path d="M56.7848 83L81.6279 107.19C83.5881 109.098 83.5881 112.192 81.6279 114.101L28.3925 165.936L0 138.29L56.7848 83Z" fill="#6366F1"/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="localpdf-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+    <linearGradient id="localpdf-grad-2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#4f46e5" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <!-- Document Stack Base -->
+    <path d="M120 180 C120 140, 140 120, 180 120 L380 120 C390 120, 400 130, 400 140 L400 380 C400 420, 380 440, 340 440 L180 440 C140 440, 120 420, 120 380 Z" fill="url(#localpdf-grad-1)" />
+
+    <!-- Overlapping Folded Document Creating the "L" & "P" visual Monogram -->
+    <path d="M180 72 L312 72 C332 72, 340 80, 340 100 L340 280 C340 320, 320 340, 280 340 L180 340 C140 340, 112 312, 112 272 L112 140 C112 100, 140 72, 180 72 Z" fill="url(#localpdf-grad-2)" opacity="0.9" />
+
+    <!-- Fold / Inner detail line representing a page fold -->
+    <path d="M160 140 L260 140 M160 200 L290 200 M160 260 L240 260" stroke="#ffffff" stroke-width="24" stroke-linecap="round" opacity="0.85" />
+  </g>
 </svg>

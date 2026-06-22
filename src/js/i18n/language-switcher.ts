@@ -16,9 +16,9 @@ export const createLanguageSwitcher = (): HTMLElement => {
   const button = document.createElement('button');
   button.className = `
     inline-flex items-center gap-1.5 text-sm font-medium
-    bg-gray-800 text-gray-200 border border-gray-600
+    bg-white text-gray-900 border border-gray-200
     px-3 py-1.5 rounded-full transition-colors duration-200
-    shadow-sm hover:shadow-md hover:bg-gray-700
+    shadow-sm hover:shadow-md hover:bg-gray-50
   `.trim();
   button.setAttribute('aria-haspopup', 'true');
   button.setAttribute('aria-expanded', 'false');
@@ -42,14 +42,14 @@ export const createLanguageSwitcher = (): HTMLElement => {
   dropdown.className = `
     hidden absolute right-0 mt-2 z-50
     w-64 max-w-[calc(100vw-2rem)]
-    rounded-lg bg-gray-800 border border-gray-700 shadow-xl
+    rounded-lg bg-white border border-gray-200 shadow-xl
     flex flex-col overflow-hidden
   `.trim();
   dropdown.setAttribute('role', 'menu');
 
   const searchWrapper = document.createElement('div');
   searchWrapper.className =
-    'p-2 border-b border-gray-700 bg-gray-800 flex-shrink-0';
+    'p-2 border-b border-gray-200 bg-white flex-shrink-0';
 
   const searchPlaceholder =
     t('nav.searchLanguage') !== 'nav.searchLanguage'
@@ -61,17 +61,17 @@ export const createLanguageSwitcher = (): HTMLElement => {
   searchInput.placeholder = searchPlaceholder;
   searchInput.className = `
     w-full px-3 py-1.5 text-sm
-    bg-gray-900 text-gray-200
-    border border-gray-700 rounded-md
-    focus:outline-none focus:border-indigo-500
-    placeholder-gray-500
+    bg-gray-100 text-gray-900
+    border border-gray-200 rounded-md
+    focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+    placeholder-gray-400
   `.trim();
   searchInput.setAttribute('aria-label', searchPlaceholder);
   searchWrapper.appendChild(searchInput);
   dropdown.appendChild(searchWrapper);
 
   const list = document.createElement('div');
-  list.className = 'max-h-64 overflow-y-auto py-1';
+  list.className = 'max-h-64 overflow-y-auto py-1 bg-white';
   list.setAttribute('role', 'none');
 
   const emptyState = document.createElement('p');
@@ -87,9 +87,9 @@ export const createLanguageSwitcher = (): HTMLElement => {
     const option = document.createElement('button');
     option.type = 'button';
     option.className = `
-      w-full px-4 py-2 text-left text-sm text-gray-200
-      hover:bg-gray-700 flex items-center gap-2 transition-colors
-      ${lang === currentLang ? 'bg-gray-700' : ''}
+      w-full px-4 py-2 text-left text-sm text-gray-900
+      hover:bg-gray-50 flex items-center gap-2 transition-colors
+      ${lang === currentLang ? 'bg-gray-100' : ''}
     `.trim();
     option.setAttribute('role', 'menuitem');
     option.dataset.lang = lang;
@@ -164,6 +164,7 @@ export const createLanguageSwitcher = (): HTMLElement => {
 };
 
 export const injectLanguageSwitcher = (): void => {
+  // Priority 1: Simple mode container
   const simpleModeContainer = document.getElementById(
     'simple-mode-language-switcher'
   );
@@ -173,64 +174,101 @@ export const injectLanguageSwitcher = (): void => {
     return;
   }
 
-  const footer = document.querySelector('footer');
-  if (!footer) return;
+  // Priority 2: Desktop navbar container
+  const navDesktop = document.getElementById('nav-language-switcher');
+  if (navDesktop) {
+    const switcher = createLanguageSwitcher();
+    navDesktop.appendChild(switcher);
+  }
 
-  const headings = footer.querySelectorAll('h3');
-  let followUsColumn: HTMLElement | null = null;
+  // Priority 3: Mobile navbar container (compact globe icon button)
+  const navMobile = document.getElementById('nav-language-switcher-mobile');
+  if (navMobile) {
+    const mobileSwitcher = createLanguageSwitcher();
+    mobileSwitcher.className = 'relative';
 
-  headings.forEach((h3) => {
-    if (
-      h3.textContent?.trim() === 'Follow Us' ||
-      h3.textContent?.trim() === 'Folgen Sie uns' ||
-      h3.textContent?.trim() === 'Theo dõi chúng tôi'
-    ) {
-      followUsColumn = h3.parentElement;
+    const btn = mobileSwitcher.querySelector('button');
+    if (btn) {
+      // Show only the globe icon on mobile to save space
+      btn.className = `
+        inline-flex items-center gap-1 text-sm font-medium
+        bg-transparent text-gray-300 border border-gray-600
+        px-2 py-1.5 rounded-full transition-colors duration-200
+        hover:bg-gray-700 hover:text-white
+      `.trim();
     }
-  });
 
-  if (followUsColumn) {
-    const socialIconsContainer = followUsColumn.querySelector('.space-x-4');
+    const dropdown = mobileSwitcher.querySelector(
+      'div[role="menu"]'
+    ) as HTMLElement | null;
+    if (dropdown) {
+      dropdown.classList.remove('right-0');
+      dropdown.classList.add('left-0');
+    }
 
-    if (socialIconsContainer) {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'inline-flex flex-col gap-4';
+    navMobile.appendChild(mobileSwitcher);
+  }
 
-      socialIconsContainer.parentNode?.insertBefore(
-        wrapper,
-        socialIconsContainer
-      );
+  // Priority 4: Footer fallback (only if navbar containers not found)
+  if (!navDesktop && !navMobile) {
+    const footer = document.querySelector('footer');
+    if (!footer) return;
 
-      wrapper.appendChild(socialIconsContainer);
-      const switcher = createLanguageSwitcher();
+    const headings = footer.querySelectorAll('h3');
+    let followUsColumn: HTMLElement | null = null;
 
-      switcher.className = 'relative w-full';
-
-      const button = switcher.querySelector('button');
-      if (button) {
-        button.className = `
-                    flex items-center justify-between w-full text-sm font-medium
-                    bg-gray-800 text-gray-400 border border-gray-700
-                    px-3 py-2 rounded-lg transition-colors duration-200
-                    hover:text-white hover:border-gray-600
-                `.trim();
+    headings.forEach((h3) => {
+      if (
+        h3.textContent?.trim() === 'Follow Us' ||
+        h3.textContent?.trim() === 'Folgen Sie uns' ||
+        h3.textContent?.trim() === 'Theo dõi chúng tôi'
+      ) {
+        followUsColumn = h3.parentElement;
       }
+    });
 
-      const dropdown = switcher.querySelector(
-        'div[role="menu"]'
-      ) as HTMLElement | null;
-      if (dropdown) {
-        dropdown.classList.remove('mt-2', 'w-64');
-        dropdown.classList.add('bottom-full', 'mb-2', 'w-full');
+    if (followUsColumn) {
+      const socialIconsContainer = followUsColumn.querySelector('.space-x-4');
+
+      if (socialIconsContainer) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'inline-flex flex-col gap-4';
+
+        socialIconsContainer.parentNode?.insertBefore(
+          wrapper,
+          socialIconsContainer
+        );
+
+        wrapper.appendChild(socialIconsContainer);
+        const switcher = createLanguageSwitcher();
+        switcher.className = 'relative w-full';
+
+        const button = switcher.querySelector('button');
+        if (button) {
+          button.className = `
+            flex items-center justify-between w-full text-sm font-medium
+            bg-gray-800 text-gray-400 border border-gray-700
+            px-3 py-2 rounded-lg transition-colors duration-200
+            hover:text-white hover:border-gray-600
+          `.trim();
+        }
+
+        const dropdown = switcher.querySelector(
+          'div[role="menu"]'
+        ) as HTMLElement | null;
+        if (dropdown) {
+          dropdown.classList.remove('mt-2', 'w-64');
+          dropdown.classList.add('bottom-full', 'mb-2', 'w-full');
+        }
+
+        wrapper.appendChild(switcher);
+      } else {
+        const switcherContainer = document.createElement('div');
+        switcherContainer.className = 'mt-4 w-full';
+        const switcher = createLanguageSwitcher();
+        switcherContainer.appendChild(switcher);
+        followUsColumn.appendChild(switcherContainer);
       }
-
-      wrapper.appendChild(switcher);
-    } else {
-      const switcherContainer = document.createElement('div');
-      switcherContainer.className = 'mt-4 w-full';
-      const switcher = createLanguageSwitcher();
-      switcherContainer.appendChild(switcher);
-      followUsColumn.appendChild(switcherContainer);
     }
   }
 };

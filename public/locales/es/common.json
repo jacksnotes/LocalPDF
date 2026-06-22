@@ -4,7 +4,7 @@
     "about": "Acerca de",
     "contact": "Contacto",
     "licensing": "Licencias",
-    "allTools": "Todas las Herramientas",
+    "allTools": "Todas las herramientas PDF",
     "docs": "Docs",
     "openMainMenu": "Abrir menú principal",
     "language": "Idioma",
@@ -12,7 +12,7 @@
     "noLanguagesFound": "No se encontraron idiomas"
   },
   "donation": {
-    "message": "¿Te encanta BentoPDF? ¡Ayúdanos a mantenerlo gratis y de código abierto!",
+    "message": "¿Te encanta LocalPDF? ¡Ayúdanos a mantenerlo gratis y de código abierto!",
     "button": "Donar"
   },
   "hero": {
@@ -22,37 +22,38 @@
     "noSignups": "Sin Registro",
     "unlimitedUse": "Uso Ilimitado",
     "worksOffline": "Funciona Sin Conexión",
-    "startUsing": "Comenzar a Usar Ahora"
+    "startUsing": "Comenzar a Usar Ahora",
+    "mainTitle": "Todas las herramientas PDF que necesitas en un solo lugar",
+    "subtitle": "Todas 100% GRATIS y fáciles de usar. Combina, divide, comprime y convierte PDFs. Sin carga de archivos. Sin registro. Funciona sin conexión."
   },
   "usedBy": {
     "title": "Usado por empresas y personas que trabajan en"
   },
   "features": {
-    "title": "¿Por qué elegir",
-    "bentoPdf": "BentoPDF?",
+    "whyChoose": "¿Por qué elegir",
     "noSignup": {
-      "title": "Sin Registro",
-      "description": "Comienza al instante, sin cuentas ni correos electrónicos."
+      "title": "Sin registro",
+      "desc": "Empieza al instante, sin cuentas ni emails."
     },
     "noUploads": {
-      "title": "Sin Cargas",
-      "description": "100% del lado del cliente, tus archivos nunca salen de tu dispositivo."
+      "title": "Sin subida de archivos",
+      "desc": "100% en el cliente, tus archivos nunca salen de tu dispositivo."
     },
     "foreverFree": {
-      "title": "Gratis para Siempre",
-      "description": "Todas las herramientas, sin pruebas, sin restricciones de pago."
+      "title": "Siempre gratis",
+      "desc": "Todas las herramientas, sin pruebas, sin muros de pago."
     },
     "noLimits": {
-      "title": "Sin Límites",
-      "description": "Usa tanto como quieras, sin límites ocultos."
+      "title": "Sin límites",
+      "desc": "Úsalo tanto como quieras, sin restricciones ocultas."
     },
     "batchProcessing": {
-      "title": "Procesamiento por Lotes",
-      "description": "Maneja PDFs ilimitados de una sola vez."
+      "title": "Procesamiento por lotes",
+      "desc": "Maneja PDFs ilimitados de una sola vez."
     },
     "lightningFast": {
       "title": "Ultrarrápido",
-      "description": "Procesa PDFs al instante, sin esperas ni retrasos."
+      "desc": "Procesa PDFs al instante, sin esperas."
     }
   },
   "tools": {
@@ -187,8 +188,8 @@
     "questions": "Frecuentes",
     "sectionTitle": "Preguntas frecuentes",
     "isFree": {
-      "question": "¿BentoPDF es realmente gratis?",
-      "answer": "Sí, absolutamente. Todas las herramientas en BentoPDF son 100% gratuitas, sin límites de archivos, sin registro y sin marcas de agua. Creemos que todos merecen acceso a herramientas PDF simples y potentes sin un muro de pago."
+      "question": "¿LocalPDF es realmente gratis?",
+      "answer": "Sí, absolutamente. Todas las herramientas en LocalPDF son 100% gratuitas, sin límites de archivos, sin registro y sin marcas de agua. Creemos que todos merecen acceso a herramientas PDF simples y potentes sin un muro de pago."
     },
     "areFilesSecure": {
       "question": "¿Mis archivos están seguros? ¿Dónde se procesan?",
@@ -196,27 +197,27 @@
     },
     "platforms": {
       "question": "¿Funciona en Mac, Windows y Móvil?",
-      "answer": "¡Sí! Dado que BentoPDF se ejecuta completamente en tu navegador, funciona en cualquier sistema operativo con un navegador web moderno, incluyendo Windows, macOS, Linux, iOS y Android."
+      "answer": "¡Sí! Dado que LocalPDF se ejecuta completamente en tu navegador, funciona en cualquier sistema operativo con un navegador web moderno, incluyendo Windows, macOS, Linux, iOS y Android."
     },
     "gdprCompliant": {
-      "question": "¿BentoPDF cumple con GDPR?",
-      "answer": "Sí. BentoPDF cumple completamente con GDPR. Dado que todo el procesamiento de archivos ocurre localmente en tu navegador y nunca recopilamos ni transmitimos tus archivos a ningún servidor, no tenemos acceso a tus datos. Esto garantiza que siempre tengas el control de tus documentos."
+      "question": "¿LocalPDF cumple con GDPR?",
+      "answer": "Sí. LocalPDF cumple completamente con GDPR. Dado que todo el procesamiento de archivos ocurre localmente en tu navegador y nunca recopilamos ni transmitimos tus archivos a ningún servidor, no tenemos acceso a tus datos. Esto garantiza que siempre tengas el control de tus documentos."
     },
     "dataStorage": {
       "question": "¿Almacenan o rastrean alguno de mis archivos?",
-      "answer": "No. Nunca almacenamos, rastreamos ni registramos tus archivos. Todo lo que haces en BentoPDF ocurre en la memoria de tu navegador y desaparece una vez que cierras la página. No hay cargas, no hay registros de historial y no hay servidores involucrados."
+      "answer": "No. Nunca almacenamos, rastreamos ni registramos tus archivos. Todo lo que haces en LocalPDF ocurre en la memoria de tu navegador y desaparece una vez que cierras la página. No hay cargas, no hay registros de historial y no hay servidores involucrados."
     },
     "different": {
-      "question": "¿Qué hace que BentoPDF sea diferente de otras herramientas PDF?",
-      "answer": "La mayoría de las herramientas PDF cargan tus archivos a un servidor para procesarlos. BentoPDF nunca hace eso. Utilizamos tecnología web moderna y segura para procesar tus archivos directamente en tu navegador. Esto significa un rendimiento más rápido, mayor privacidad y total tranquilidad."
+      "question": "¿Qué hace que LocalPDF sea diferente de otras herramientas PDF?",
+      "answer": "La mayoría de las herramientas PDF cargan tus archivos a un servidor para procesarlos. LocalPDF nunca hace eso. Utilizamos tecnología web moderna y segura para procesar tus archivos directamente en tu navegador. Esto significa un rendimiento más rápido, mayor privacidad y total tranquilidad."
     },
     "browserBased": {
       "question": "¿Cómo me mantiene seguro el procesamiento basado en navegador?",
-      "answer": "Al ejecutarse completamente dentro de tu navegador, BentoPDF garantiza que tus archivos nunca salgan de tu dispositivo. Esto elimina los riesgos de hackeos de servidores, violaciones de datos o accesos no autorizados. Tus archivos siguen siendo tuyos, siempre."
+      "answer": "Al ejecutarse completamente dentro de tu navegador, LocalPDF garantiza que tus archivos nunca salgan de tu dispositivo. Esto elimina los riesgos de hackeos de servidores, violaciones de datos o accesos no autorizados. Tus archivos siguen siendo tuyos, siempre."
     },
     "analytics": {
       "question": "¿Usan cookies o análisis para rastrearme?",
-      "answer": "Nos preocupamos por tu privacidad. BentoPDF no rastrea información personal. Usamos Simple Analytics únicamente para ver recuentos de visitas anónimas. Esto significa que podemos saber cuántos usuarios visitan nuestro sitio, pero nunca sabemos quién eres. Simple Analytics cumple completamente con GDPR y respeta tu privacidad."
+      "answer": "Nos preocupamos por tu privacidad. LocalPDF no rastrea información personal. Usamos Google Analytics únicamente para ver recuentos de visitas anónimas. Esto significa que podemos saber cuántos usuarios visitan nuestro sitio, pero nunca sabemos quién eres. Google Analytics cumple completamente con GDPR y respeta tu privacidad."
     }
   },
   "testimonials": {
@@ -226,11 +227,11 @@
   },
   "support": {
     "title": "¿Te Gusta Mi Trabajo?",
-    "description": "BentoPDF es un proyecto de pasión, creado para proporcionar un kit de herramientas PDF gratuito, privado y potente para todos. Si te resulta útil, considera apoyar su desarrollo. ¡Cada café ayuda!",
+    "description": "LocalPDF es un proyecto de pasión, creado para proporcionar un kit de herramientas PDF gratuito, privado y potente para todos. Si te resulta útil, considera apoyar su desarrollo. ¡Cada café ayuda!",
     "buyMeCoffee": "Cómprame un Café"
   },
   "footer": {
-    "copyright": "© 2025 BentoPDF. Todos los derechos reservados.",
+    "copyright": "© 2025 LocalPDF. Todos los derechos reservados.",
     "version": "Versión",
     "company": "Empresa",
     "aboutUs": "Acerca de Nosotros",
@@ -292,9 +293,9 @@
     "philosophy": {
       "label": "Nuestra Filosofía Central",
       "title": "Privacidad Primero. Siempre.",
-      "description": "En una era donde los datos son una mercancía, adoptamos un enfoque diferente. Todo el procesamiento de las herramientas de Bentopdf ocurre localmente en tu navegador. Esto significa que tus archivos nunca tocan nuestros servidores, nunca vemos tus documentos y no rastreamos lo que haces. Tus documentos permanecen completa e inequívocamente privados. No es solo una característica; es nuestra base."
+      "description": "En una era donde los datos son una mercancía, adoptamos un enfoque diferente. Todo el procesamiento de las herramientas de LocalPDF ocurre localmente en tu navegador. Esto significa que tus archivos nunca tocan nuestros servidores, nunca vemos tus documentos y no rastreamos lo que haces. Tus documentos permanecen completa e inequívocamente privados. No es solo una característica; es nuestra base."
     },
-    "whyBentopdf": {
+    "whyLocalPDF": {
       "title": "Por qué",
       "speed": {
         "title": "Diseñado para la Velocidad",
@@ -315,7 +316,7 @@
     },
     "cta": {
       "title": "¿Listo para comenzar?",
-      "description": "Únete a miles de usuarios que confían en Bentopdf para sus necesidades diarias de documentos. Experimenta la diferencia que la privacidad y el rendimiento pueden hacer.",
+      "description": "Únete a miles de usuarios que confían en LocalPDF para sus necesidades diarias de documentos. Experimenta la diferencia que la privacidad y el rendimiento pueden hacer.",
       "button": "Explorar Todas las Herramientas"
     }
   },

@@ -51,3 +51,6 @@ bentopdf-*.tgz
 # test 
 dist-test
 test
+
+# WASM assets
+public/wasm/

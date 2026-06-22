@@ -6,12 +6,12 @@ interface WasmProviderConfig {
   cpdf?: string;
 }
 
-const STORAGE_KEY = 'bentopdf:wasm-providers';
+const STORAGE_KEY = 'LocalPDF:wasm-providers';
 
 const CDN_DEFAULTS: Record<WasmPackage, string> = {
-  pymupdf: 'https://cdn.jsdelivr.net/npm/@bentopdf/pymupdf-wasm@0.11.16/',
-  ghostscript: 'https://cdn.jsdelivr.net/npm/@bentopdf/gs-wasm@0.1.1/assets/',
-  cpdf: 'https://cdn.jsdelivr.net/npm/coherentpdf@2.5.5/dist/',
+  pymupdf: '/wasm/pymupdf/',
+  ghostscript: '/wasm/gs/',
+  cpdf: '/wasm/cpdf/',
 };
 
 function envOrDefault(envVar: string | undefined, fallback: string): string {
@@ -179,8 +179,10 @@ class WasmProviderManager {
       return { valid: false, error: 'No URL configured' };
     }
 
+    let parsedUrl: URL;
     try {
-      const parsedUrl = new URL(testUrl);
+      const base = typeof window !== 'undefined' ? window.location.origin : undefined;
+      parsedUrl = new URL(testUrl, base);
       if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
         return {
           valid: false,
@@ -191,11 +193,12 @@ class WasmProviderManager {
       return {
         valid: false,
         error:
-          'Invalid URL format. Please enter a valid URL (e.g., https://example.com/wasm/)',
+          'Invalid URL format. Please enter a valid URL (e.g., https://example.com/wasm/) or a relative path (e.g., /wasm/pymupdf/)',
       };
     }
 
-    const normalizedUrl = testUrl.endsWith('/') ? testUrl : `${testUrl}/`;
+    const resolvedUrlString = parsedUrl.toString();
+    const normalizedUrl = resolvedUrlString.endsWith('/') ? resolvedUrlString : `${resolvedUrlString}/`;
 
     try {
       const testFiles: Record<WasmPackage, string> = {

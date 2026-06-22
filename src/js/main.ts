@@ -61,7 +61,7 @@ const init = async () => {
       }
 
       const githubLink = document.querySelector(
-        'a[href*="github.com/alam00000/bentopdf"]'
+        'a[href*="github.com/alam00000/LocalPDF"]'
       );
       if (githubLink) {
         (githubLink as HTMLElement).style.display = 'none';
@@ -109,7 +109,7 @@ const init = async () => {
         (divider as HTMLElement).style.display = 'none';
       });
 
-      const brandName = __BRAND_NAME__ || 'BentoPDF';
+      const brandName = __BRAND_NAME__ || 'LocalPDF';
       document.title = `${brandName} - ${t('simpleMode.title')}`;
 
       const toolsHeader = document.getElementById('tools-header');
@@ -284,23 +284,55 @@ const init = async () => {
     'Rasterize PDF': 'tools:rasterizePdf',
   };
 
-  // Homepage-only tool grid rendering (not used on individual tool pages)
   if (dom.toolGrid) {
-    dom.toolGrid.textContent = '';
+    const categoryTabs = document.getElementById('category-tabs');
+    let activeCategoryIndex = -1; // -1 represents "All Tools"
 
-    let collapsedCategories: string[] = [];
-    try {
-      const stored = localStorage.getItem('collapsedCategories');
-      if (stored) collapsedCategories = JSON.parse(stored);
-    } catch {
-      localStorage.removeItem('collapsedCategories');
+    function getToolId(tool: { href?: string; name: string }) {
+      if (tool.href) {
+        return tool.href.split('/').pop()?.replace('.html', '') || '';
+      }
+      return tool.name.toLowerCase().replace(/\s+/g, '-');
     }
 
-    function saveCollapsedCategories() {
-      localStorage.setItem(
-        'collapsedCategories',
-        JSON.stringify(collapsedCategories)
-      );
+    function createToolCardElement(tool: { href?: string; name: string; icon: string; subtitle?: string }) {
+      let toolCard: HTMLDivElement | HTMLAnchorElement;
+
+      if (tool.href) {
+        toolCard = document.createElement('a');
+        toolCard.href = tool.href;
+        toolCard.className = 'tool-card';
+      } else {
+        toolCard = document.createElement('div');
+        toolCard.className = 'tool-card';
+        toolCard.dataset.toolId = getToolId(tool);
+      }
+
+      const icon = document.createElement('i');
+      if (tool.icon.startsWith('ph-')) {
+        icon.className = `ph ${tool.icon}`;
+      } else {
+        icon.setAttribute('data-lucide', tool.icon);
+      }
+
+      const cardContent = document.createElement('div');
+      cardContent.className = 'tool-card-content';
+
+      const toolName = document.createElement('h3');
+      const toolKey = toolTranslationKeys[tool.name];
+      toolName.textContent = toolKey ? t(`${toolKey}.name`) : tool.name;
+      cardContent.appendChild(toolName);
+
+      if (tool.subtitle) {
+        const toolSubtitle = document.createElement('p');
+        toolSubtitle.textContent = toolKey
+          ? t(`${toolKey}.subtitle`)
+          : tool.subtitle;
+        cardContent.appendChild(toolSubtitle);
+      }
+
+      toolCard.append(icon, cardContent);
+      return toolCard;
     }
 
     const filteredCategories = categories
@@ -310,187 +342,106 @@ const init = async () => {
       }))
       .filter((category) => category.tools.length > 0);
 
-    filteredCategories.forEach((category) => {
-      const categoryGroup = document.createElement('div');
-      categoryGroup.className = 'category-group col-span-full';
+    function renderTools(searchTerm: string = '', activeCategory: string = 'all') {
+      dom.toolGrid.innerHTML = '';
 
-      const header = document.createElement('button');
-      header.className = 'category-header';
-      header.type = 'button';
+      if (searchTerm) {
+        const seenToolIds = new Set<string>();
+        const resultsContainer = document.createElement('div');
+        resultsContainer.className = 'col-span-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5';
 
-      const title = document.createElement('span');
-      const categoryKey = categoryTranslationKeys[category.name];
-      title.textContent = categoryKey ? t(categoryKey) : category.name;
+        filteredCategories.forEach((category) => {
+          category.tools.forEach((tool) => {
+            const toolName = (toolTranslationKeys[tool.name] ? t(`${toolTranslationKeys[tool.name]}.name`) : tool.name).toLowerCase();
+            const toolSubtitle = (toolTranslationKeys[tool.name] ? t(`${toolTranslationKeys[tool.name]}.subtitle`) : (tool.subtitle || '')).toLowerCase();
+            const toolId = getToolId(tool);
 
-      const chevron = document.createElement('i');
-      chevron.setAttribute('data-lucide', 'chevron-down');
-      chevron.className =
-        'category-chevron w-5 h-5 text-gray-400 transition-transform duration-300';
-
-      header.append(title, chevron);
-
-      const toolsContainer = document.createElement('div');
-      toolsContainer.className =
-        'category-tools grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6';
-
-      const isCollapsed = collapsedCategories.includes(category.name);
-      if (isCollapsed) {
-        categoryGroup.classList.add('collapsed');
-        toolsContainer.style.maxHeight = '0px';
-      }
-
-      toolsContainer.addEventListener('transitionend', (e) => {
-        if ((e as TransitionEvent).propertyName !== 'max-height') return;
-        if (!categoryGroup.classList.contains('collapsed')) {
-          toolsContainer.style.maxHeight = 'none';
-          toolsContainer.style.overflow = 'visible';
-        }
-      });
-
-      header.addEventListener('click', () => {
-        const collapsed = categoryGroup.classList.toggle('collapsed');
-        if (collapsed) {
-          toolsContainer.style.maxHeight = toolsContainer.scrollHeight + 'px';
-          toolsContainer.style.overflow = 'hidden';
-          requestAnimationFrame(() => {
-            toolsContainer.style.maxHeight = '0px';
-          });
-          if (!collapsedCategories.includes(category.name)) {
-            collapsedCategories.push(category.name);
-          }
-        } else {
-          toolsContainer.style.overflow = 'hidden';
-          toolsContainer.style.maxHeight = toolsContainer.scrollHeight + 'px';
-          collapsedCategories = collapsedCategories.filter(
-            (n) => n !== category.name
-          );
-        }
-        saveCollapsedCategories();
-      });
-
-      category.tools.forEach((tool) => {
-        let toolCard: HTMLDivElement | HTMLAnchorElement;
-
-        if (tool.href) {
-          toolCard = document.createElement('a');
-          toolCard.href = tool.href;
-          toolCard.className =
-            'tool-card block bg-gray-800 rounded-xl p-4 cursor-pointer flex flex-col items-center justify-center text-center no-underline hover:shadow-lg transition duration-200';
-        } else {
-          toolCard = document.createElement('div');
-          toolCard.className =
-            'tool-card bg-gray-800 rounded-xl p-4 cursor-pointer flex flex-col items-center justify-center text-center hover:shadow-lg transition duration-200';
-          toolCard.dataset.toolId = getToolId(tool);
-        }
-
-        const icon = document.createElement('i');
-        icon.className = 'w-10 h-10 mb-3 text-indigo-400';
-
-        if (tool.icon.startsWith('ph-')) {
-          icon.className = `ph ${tool.icon} text-4xl mb-3 text-indigo-400`;
-        } else {
-          icon.setAttribute('data-lucide', tool.icon);
-        }
-
-        const toolName = document.createElement('h3');
-        toolName.className = 'font-semibold text-white';
-        const toolKey = toolTranslationKeys[tool.name];
-        toolName.textContent = toolKey ? t(`${toolKey}.name`) : tool.name;
-
-        toolCard.append(icon, toolName);
-
-        if (tool.subtitle) {
-          const toolSubtitle = document.createElement('p');
-          toolSubtitle.className = 'text-xs text-gray-400 mt-1 px-2';
-          toolSubtitle.textContent = toolKey
-            ? t(`${toolKey}.subtitle`)
-            : tool.subtitle;
-          toolCard.appendChild(toolSubtitle);
-        }
-
-        toolsContainer.appendChild(toolCard);
-      });
-
-      categoryGroup.append(header, toolsContainer);
-      dom.toolGrid.appendChild(categoryGroup);
-
-      if (!isCollapsed) {
-        toolsContainer.style.maxHeight = 'none';
-        toolsContainer.style.overflow = 'visible';
-      }
-    });
-
-    const searchBar = document.getElementById('search-bar');
-    const categoryGroups = dom.toolGrid.querySelectorAll('.category-group');
-
-    const searchResultsContainer = document.createElement('div');
-    searchResultsContainer.id = 'search-results';
-    searchResultsContainer.className =
-      'hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 col-span-full';
-    dom.toolGrid.insertBefore(searchResultsContainer, dom.toolGrid.firstChild);
-
-    searchBar.addEventListener('input', () => {
-      // @ts-expect-error TS(2339) FIXME: Property 'value' does not exist on type 'HTMLEleme... Remove this comment to see the full error message
-      const searchTerm = searchBar.value.toLowerCase().trim();
-
-      if (!searchTerm) {
-        searchResultsContainer.classList.add('hidden');
-        searchResultsContainer.innerHTML = '';
-        categoryGroups.forEach((group) => {
-          (group as HTMLElement).style.display = '';
-          const toolCards = group.querySelectorAll('.tool-card');
-          toolCards.forEach((card) => {
-            (card as HTMLElement).style.display = '';
+            const isMatch = toolName.includes(searchTerm) || toolSubtitle.includes(searchTerm);
+            if (isMatch && !seenToolIds.has(toolId)) {
+              seenToolIds.add(toolId);
+              resultsContainer.appendChild(createToolCardElement(tool));
+            }
           });
         });
+
+        if (seenToolIds.size === 0) {
+          const noResults = document.createElement('div');
+          noResults.className = 'col-span-full text-center py-12 text-gray-500';
+          noResults.textContent = t('tools.noResults') || 'No tools found matching your search.';
+          dom.toolGrid.appendChild(noResults);
+        } else {
+          dom.toolGrid.appendChild(resultsContainer);
+        }
+
+        createIcons({ icons });
         return;
       }
 
-      categoryGroups.forEach((group) => {
-        (group as HTMLElement).style.display = 'none';
-      });
-
-      searchResultsContainer.innerHTML = '';
-      searchResultsContainer.classList.remove('hidden');
+      // Category filter: if activeCategory is not 'all', only show that category
+      const categoriesToRender = activeCategory === 'all'
+        ? filteredCategories
+        : filteredCategories.filter((c) => c.name === activeCategory);
 
       const seenToolIds = new Set<string>();
-      const allTools: HTMLElement[] = [];
 
-      categoryGroups.forEach((group) => {
-        const toolCards = Array.from(group.querySelectorAll('.tool-card'));
+      categoriesToRender.forEach((category) => {
+        const categorySection = document.createElement('div');
+        categorySection.className = 'col-span-full mb-8';
 
-        toolCards.forEach((card) => {
-          const toolName = (
-            card.querySelector('h3')?.textContent || ''
-          ).toLowerCase();
-          const toolSubtitle = (
-            card.querySelector('p')?.textContent || ''
-          ).toLowerCase();
-          const toolHref =
-            (card as HTMLAnchorElement).href ||
-            (card as HTMLElement).dataset.toolId ||
-            '';
+        // Only show category title when showing all categories
+        if (activeCategory === 'all') {
+          const title = document.createElement('h2');
+          title.className = 'category-section-title';
+          const categoryKey = categoryTranslationKeys[category.name];
+          title.textContent = categoryKey ? t(categoryKey) : category.name;
+          categorySection.appendChild(title);
+        }
 
-          const toolId =
-            toolHref.split('/').pop()?.replace('.html', '') || toolName;
+        const grid = document.createElement('div');
+        grid.className = 'tool-grid';
 
-          const isMatch =
-            toolName.includes(searchTerm) || toolSubtitle.includes(searchTerm);
-          const isDuplicate = seenToolIds.has(toolId);
-
-          if (isMatch && !isDuplicate) {
+        category.tools.forEach((tool) => {
+          const toolId = getToolId(tool);
+          if (!seenToolIds.has(toolId)) {
             seenToolIds.add(toolId);
-            allTools.push(card.cloneNode(true) as HTMLElement);
+            grid.appendChild(createToolCardElement(tool));
           }
         });
-      });
 
-      allTools.forEach((tool) => {
-        searchResultsContainer.appendChild(tool);
+        categorySection.appendChild(grid);
+        dom.toolGrid.appendChild(categorySection);
       });
 
       createIcons({ icons });
-    });
+    }
+
+    let currentCategory = 'all';
+    renderTools('', currentCategory);
+
+    // Category tab filtering
+    const categoryTabsNav = document.getElementById('category-tabs');
+    if (categoryTabsNav) {
+      categoryTabsNav.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest('.cat-tab') as HTMLButtonElement | null;
+        if (!btn) return;
+        const cat = btn.dataset.category || 'all';
+        currentCategory = cat;
+        // Update active state
+        categoryTabsNav.querySelectorAll('.cat-tab').forEach((t) => t.classList.remove('active'));
+        btn.classList.add('active');
+        const searchBar2 = document.getElementById('search-bar') as HTMLInputElement;
+        renderTools(searchBar2?.value.toLowerCase().trim() || '', currentCategory);
+      });
+    }
+
+    const searchBar = document.getElementById('search-bar') as HTMLInputElement;
+
+    if (searchBar) {
+      searchBar.addEventListener('input', () => {
+        const searchTerm = searchBar.value.toLowerCase().trim();
+        renderTools(searchTerm, currentCategory);
+      });
+    }
 
     window.addEventListener('keydown', function (e) {
       const key = e.key.toLowerCase();
@@ -498,7 +449,7 @@ const init = async () => {
       const isCtrlK = e.ctrlKey && key === 'k';
       const isCmdK = isMac && e.metaKey && key === 'k';
 
-      if (isCtrlK || isCmdK) {
+      if (searchBar && (isCtrlK || isCmdK)) {
         e.preventDefault();
         searchBar.focus();
       }
@@ -537,8 +488,23 @@ const init = async () => {
     });
   }
 
+  // ---- New navbar: mobile hamburger ----
+  const mobileMenuBtn = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('hidden') === false;
+      mobileMenuBtn.setAttribute('aria-expanded', isOpen.toString());
+      menuIcon?.classList.toggle('hidden', isOpen);
+      closeIcon?.classList.toggle('hidden', !isOpen);
+    });
+  }
+
   createIcons({ icons });
   console.log('Please share our tool and share the love!');
+
 
   const githubStarsElements = [
     document.getElementById('github-stars-desktop'),
@@ -546,7 +512,7 @@ const init = async () => {
   ];
 
   if (githubStarsElements.some((el) => el) && !__SIMPLE_MODE__) {
-    fetch('https://api.github.com/repos/alam00000/bentopdf')
+    fetch('https://api.github.com/repos/alam00000/LocalPDF')
       .then((response) => response.json())
       .then((data) => {
         if (data.stargazers_count !== undefined) {
@@ -789,30 +755,30 @@ const init = async () => {
 
   // Reserved shortcuts that commonly conflict with browser/OS functions
   const RESERVED_SHORTCUTS: Record<string, { mac?: string; windows?: string }> =
-    {
-      'mod+w': { mac: 'Closes tab', windows: 'Closes tab' },
-      'mod+t': { mac: 'Opens new tab', windows: 'Opens new tab' },
-      'mod+n': { mac: 'Opens new window', windows: 'Opens new window' },
-      'mod+shift+n': {
-        mac: 'Opens incognito window',
-        windows: 'Opens incognito window',
-      },
-      'mod+q': { mac: 'Quits application (cannot be overridden)' },
-      'mod+m': { mac: 'Minimizes window' },
-      'mod+h': { mac: 'Hides window' },
-      'mod+r': { mac: 'Reloads page', windows: 'Reloads page' },
-      'mod+shift+r': { mac: 'Hard reloads page', windows: 'Hard reloads page' },
-      'mod+l': { mac: 'Focuses address bar', windows: 'Focuses address bar' },
-      'mod+d': { mac: 'Bookmarks page', windows: 'Bookmarks page' },
-      'mod+shift+t': {
-        mac: 'Reopens closed tab',
-        windows: 'Reopens closed tab',
-      },
-      'mod+shift+w': { mac: 'Closes window', windows: 'Closes window' },
-      'mod+tab': { mac: 'Switches tabs', windows: 'Switches apps' },
-      'alt+f4': { windows: 'Closes window' },
-      'ctrl+tab': { mac: 'Switches tabs', windows: 'Switches tabs' },
-    };
+  {
+    'mod+w': { mac: 'Closes tab', windows: 'Closes tab' },
+    'mod+t': { mac: 'Opens new tab', windows: 'Opens new tab' },
+    'mod+n': { mac: 'Opens new window', windows: 'Opens new window' },
+    'mod+shift+n': {
+      mac: 'Opens incognito window',
+      windows: 'Opens incognito window',
+    },
+    'mod+q': { mac: 'Quits application (cannot be overridden)' },
+    'mod+m': { mac: 'Minimizes window' },
+    'mod+h': { mac: 'Hides window' },
+    'mod+r': { mac: 'Reloads page', windows: 'Reloads page' },
+    'mod+shift+r': { mac: 'Hard reloads page', windows: 'Hard reloads page' },
+    'mod+l': { mac: 'Focuses address bar', windows: 'Focuses address bar' },
+    'mod+d': { mac: 'Bookmarks page', windows: 'Bookmarks page' },
+    'mod+shift+t': {
+      mac: 'Reopens closed tab',
+      windows: 'Reopens closed tab',
+    },
+    'mod+shift+w': { mac: 'Closes window', windows: 'Closes window' },
+    'mod+tab': { mac: 'Switches tabs', windows: 'Switches apps' },
+    'alt+f4': { windows: 'Closes window' },
+    'ctrl+tab': { mac: 'Switches tabs', windows: 'Switches tabs' },
+  };
 
   function getReservedShortcutWarning(
     combo: string,
@@ -1058,8 +1024,8 @@ const init = async () => {
               await showWarningModal(
                 t('settings.warnings.alreadyInUse'),
                 `<strong>${escapeHtml(displayCombo)}</strong> ${t('settings.warnings.assignedTo')}<br><br>` +
-                  `<em>"${escapeHtml(translatedToolName)}"</em><br><br>` +
-                  t('settings.warnings.chooseDifferent'),
+                `<em>"${escapeHtml(translatedToolName)}"</em><br><br>` +
+                t('settings.warnings.chooseDifferent'),
                 false
               );
 
@@ -1078,9 +1044,9 @@ const init = async () => {
               const shouldProceed = await showWarningModal(
                 t('settings.warnings.reserved'),
                 `<strong>${escapeHtml(displayCombo)}</strong> ${t('settings.warnings.commonlyUsed')}<br><br>` +
-                  `"<em>${escapeHtml(reservedWarning)}</em>"<br><br>` +
-                  `${t('settings.warnings.unreliable')}<br><br>` +
-                  t('settings.warnings.useAnyway')
+                `"<em>${escapeHtml(reservedWarning)}</em>"<br><br>` +
+                `${t('settings.warnings.unreliable')}<br><br>` +
+                t('settings.warnings.useAnyway')
               );
 
               if (!shouldProceed) {

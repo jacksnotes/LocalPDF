@@ -73,15 +73,8 @@ export const getLanguageFromUrl = (): SupportedLanguage => {
     return langMatch[1] as SupportedLanguage;
   }
 
-  const storedLang = localStorage.getItem('i18nextLng');
-  if (
-    storedLang &&
-    supportedLanguages.includes(storedLang as SupportedLanguage)
-  ) {
-    return storedLang as SupportedLanguage;
-  }
-
-  // Check browser language preferences
+  // Check browser language preferences FIRST (before localStorage)
+  // This prevents stale localStorage values from overriding the user's actual browser language
   if (typeof navigator !== 'undefined' && navigator.languages) {
     for (const lang of navigator.languages) {
       if (supportedLanguages.includes(lang as SupportedLanguage)) {
@@ -93,6 +86,15 @@ export const getLanguageFromUrl = (): SupportedLanguage => {
         return primaryLang as SupportedLanguage;
       }
     }
+  }
+
+  // localStorage as fallback (lower priority than browser language)
+  const storedLang = localStorage.getItem('i18nextLng');
+  if (
+    storedLang &&
+    supportedLanguages.includes(storedLang as SupportedLanguage)
+  ) {
+    return storedLang as SupportedLanguage;
   }
 
   const envLang = import.meta.env?.VITE_DEFAULT_LANGUAGE;
@@ -130,6 +132,11 @@ export const initI18n = async (): Promise<typeof i18next> => {
   await i18next.loadNamespaces('tools');
 
   initialized = true;
+
+  // Apply lang attribute and direction early
+  document.documentElement.lang = currentLang;
+  setDirectionAttribute(currentLang as SupportedLanguage);
+
   return i18next;
 };
 
@@ -137,9 +144,20 @@ export const t = (key: string, options?: Record<string, unknown>): string => {
   return i18next.t(key, options);
 };
 
+// RTL languages list
+const rtlLanguages: SupportedLanguage[] = ['ar'];
+
+const setDirectionAttribute = (lang: SupportedLanguage): void => {
+  const dir = rtlLanguages.includes(lang) ? 'rtl' : 'ltr';
+  document.documentElement.dir = dir;
+};
+
 export const changeLanguage = (lang: SupportedLanguage): void => {
   if (!supportedLanguages.includes(lang)) return;
   localStorage.setItem('i18nextLng', lang);
+
+  // Set RTL/LTR before navigation
+  setDirectionAttribute(lang);
 
   const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
   let relativePath = window.location.pathname;
@@ -216,8 +234,9 @@ export const applyTranslations = (): void => {
     }
   });
 
-  document.documentElement.lang = i18next.language;
-  document.documentElement.dir = i18next.language === 'ar' ? 'rtl' : 'ltr';
+  const currentLang = i18next.language as SupportedLanguage;
+  document.documentElement.lang = currentLang;
+  setDirectionAttribute(currentLang);
 };
 
 export const rewriteLinks = (): void => {

@@ -4,7 +4,7 @@
     "about": "Om",
     "contact": "Kontakt",
     "licensing": "licensing",
-    "allTools": "Alle værktøjer",
+    "allTools": "Alle PDF-værktøjer",
     "docs": "Docs",
     "openMainMenu": "Åbn hovedmenu",
     "language": "Sprog",
@@ -12,7 +12,7 @@
     "noLanguagesFound": "Ingen sprog fundet"
   },
   "donation": {
-    "message": "Elsker du BentoPDF? Hjælp os med at holde det gratis og open source!",
+    "message": "Elsker du LocalPDF? Hjælp os med at holde det gratis og open source!",
     "button": "Donér"
   },
   "hero": {
@@ -22,37 +22,38 @@
     "noSignups": "Ingen tilmeldinger",
     "unlimitedUse": "Ubegrænset brug",
     "worksOffline": "Virker offline",
-    "startUsing": "Start med at bruge det nu"
+    "startUsing": "Start med at bruge det nu",
+    "mainTitle": "Alle PDF-værktøjer du har brug for ét sted",
+    "subtitle": "Alle 100% GRATIS og nemme at bruge! Flet, opdel, komprimer og konverter PDF. Ingen upload. Ingen registrering."
   },
   "usedBy": {
     "title": "Bruges af virksomheder og personer der arbejder hos"
   },
   "features": {
-    "title": "Hvorfor vælge",
-    "bentoPdf": "BentoPDF?",
+    "whyChoose": "Why choose",
     "noSignup": {
-      "title": "Ingen tilmelding",
-      "description": "Start med det samme, ingen konti eller e-mails."
+      "title": "No Signup",
+      "desc": "Start instantly, no accounts or emails."
     },
     "noUploads": {
-      "title": "Ingen uploads",
-      "description": "100% klientside – dine filer forlader aldrig din enhed."
+      "title": "No Uploads",
+      "desc": "100% client-side, your files never leave your device."
     },
     "foreverFree": {
-      "title": "Altid gratis",
-      "description": "Alle værktøjer, ingen prøveperioder, ingen betalingsmure."
+      "title": "Forever Free",
+      "desc": "All tools, no trials, no paywalls."
     },
     "noLimits": {
-      "title": "Ingen begrænsninger",
-      "description": "Brug det så meget du vil, ingen skjulte grænser."
+      "title": "No Limits",
+      "desc": "Use as much as you want, no hidden caps."
     },
     "batchProcessing": {
-      "title": "Batchbehandling",
-      "description": "Håndter ubegrænsede PDF'er på én gang."
+      "title": "Batch Processing",
+      "desc": "Handle unlimited PDFs in one go."
     },
     "lightningFast": {
-      "title": "Lynhurtigt",
-      "description": "Behandl PDF’er øjeblikkeligt, uden ventetid eller forsinkelser."
+      "title": "Lightning Fast",
+      "desc": "Process PDFs instantly, without waiting or delays."
     }
   },
   "tools": {
@@ -187,7 +188,7 @@
     "questions": "Spørgsmål",
     "sectionTitle": "Ofte stillede spørgsmål",
     "isFree": {
-      "question": "Er BentoPDF virkelig gratis?",
+      "question": "Er LocalPDF virkelig gratis?",
       "answer": "Ja, absolut. Alle værktøjer er 100% gratis at bruge, uden filgrænser, uden tilmeldinger og uden vandmærker."
     },
     "areFilesSecure": {
@@ -196,10 +197,10 @@
     },
     "platforms": {
       "question": "Virker det på Mac, Windows og mobil?",
-      "answer": "Ja! BentoPDF virker på alle moderne browsere, uanset styresystem."
+      "answer": "Ja! LocalPDF virker på alle moderne browsere, uanset styresystem."
     },
     "gdprCompliant": {
-      "question": "Er BentoPDF GDPR-kompatibel?",
+      "question": "Er LocalPDF GDPR-kompatibel?",
       "answer": "Ja. Da vi ikke indsamler eller behandler dine filer på vores servere, er dine data altid under din kontrol."
     },
     "dataStorage": {
@@ -207,8 +208,8 @@
       "answer": "Nej. Vi gemmer eller sporer aldrig dine filer. Alt foregår i din browser."
     },
     "different": {
-      "question": "Hvad gør BentoPDF anderledes?",
-      "answer": "De fleste PDF-værktøjer uploader dine filer til en server. BentoPDF gør det hele lokalt i din browser."
+      "question": "Hvad gør LocalPDF anderledes?",
+      "answer": "De fleste PDF-værktøjer uploader dine filer til en server. LocalPDF gør det hele lokalt i din browser."
     },
     "browserBased": {
       "question": "Hvordan gør browserbaseret behandling mig sikker?",
@@ -216,7 +217,7 @@
     },
     "analytics": {
       "question": "Bruger I cookies eller analyseværktøjer?",
-      "answer": "Vi bruger kun Simple Analytics til anonyme besøgsdata. Ingen personlige oplysninger indsamles."
+      "answer": "Vi bruger kun Google Analytics til anonyme besøgsdata. Ingen personlige oplysninger indsamles."
     }
   },
   "testimonials": {
@@ -226,11 +227,11 @@
   },
   "support": {
     "title": "Kan du lide mit arbejde?",
-    "description": "BentoPDF er et passioneret projekt, bygget for at tilbyde et gratis og privat PDF-værktøj til alle.",
+    "description": "LocalPDF er et passioneret projekt, bygget for at tilbyde et gratis og privat PDF-værktøj til alle.",
     "buyMeCoffee": "Køb en kaffe til mig"
   },
   "footer": {
-    "copyright": "© 2026 BentoPDF. Alle rettigheder forbeholdes.",
+    "copyright": "© 2026 LocalPDF. Alle rettigheder forbeholdes.",
     "version": "Version",
     "company": "Virksomhed",
     "aboutUs": "Om os",
@@ -294,7 +295,7 @@
       "title": "Privatliv først. Altid.",
       "description": "Alt sker lokalt i din browser. Dine dokumenter er 100% private."
     },
-    "whyBentopdf": {
+    "whyLocalPDF": {
       "title": "Hvorfor",
       "speed": {
         "title": "Bygget til hastighed",

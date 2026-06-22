@@ -59,7 +59,6 @@ function loadPages(): Set<string> {
     'faq',
     'privacy',
     'terms',
-    'licensing',
     'tools',
     '404',
     'pdf-converter',
@@ -450,6 +449,25 @@ function rewriteHtmlPathsPlugin(): Plugin {
   };
 }
 
+function googleAnalyticsPlugin(): Plugin {
+  return {
+    name: 'google-analytics',
+    transformIndexHtml(html) {
+      const gaScript = `
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W7CF1RMJ97"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-W7CF1RMJ97');
+  </script>
+`;
+      return html.replace('</head>', `${gaScript}</head>`);
+    }
+  };
+}
+
 export default defineConfig(() => {
   const USE_CDN = process.env.VITE_USE_CDN === 'true';
 
@@ -469,6 +487,7 @@ export default defineConfig(() => {
   return {
     base: (process.env.BASE_URL || '/').replace(/\/?$/, '/'),
     plugins: [
+      googleAnalyticsPlugin(),
       // basicSsl(),
       handlebars({
         partialDirectory: resolve(__dirname, 'src/partials'),
@@ -565,7 +584,6 @@ export default defineConfig(() => {
           faq: resolve(__dirname, 'faq.html'),
           privacy: resolve(__dirname, 'privacy.html'),
           terms: resolve(__dirname, 'terms.html'),
-          licensing: resolve(__dirname, 'licensing.html'),
           tools: resolve(__dirname, 'tools.html'),
           '404': resolve(__dirname, '404.html'),
           // Category Hub Pages
