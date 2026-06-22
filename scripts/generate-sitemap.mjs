@@ -86,7 +86,6 @@ function generateSitemap() {
   };
 
   let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 `;
@@ -123,15 +122,6 @@ function generateSitemap() {
 
   const publicSitemapPath = path.resolve(__dirname, '../public/sitemap.xml');
   fs.writeFileSync(publicSitemapPath, sitemap);
-
-  try {
-    fs.copyFileSync(
-      path.resolve(__dirname, '../public/sitemap.xsl'),
-      path.join(DIST_DIR, 'sitemap.xsl')
-    );
-  } catch (err) {
-    // ignore
-  }
 
   console.log(
     `✅ Sitemap generated with ${htmlFiles.length} canonical URLs (${languages.length} hreflang alternates each)`
