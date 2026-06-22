@@ -19,9 +19,9 @@ jobs:
     strategy:
       matrix:
         image:
-          - name: bentopdf
+          - name: localpdf
             file: Dockerfile
-          - name: bentopdf-nonroot
+          - name: localpdf-nonroot
             file: Dockerfile.nonroot
     steps:
       - name: Checkout code
