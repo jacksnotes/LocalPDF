@@ -26,6 +26,15 @@
     "mainTitle": "Pure Local PDF Tools - 100% Free & Offline",
     "subtitle": "Every tool you need to work with PDFs in one place. No file uploads, no signups, 100% privacy-first. Split, merge, compress, and convert PDFs instantly in your browser."
   },
+  "sponsor": {
+    "label": "Sponsored",
+    "marquee": {
+      "channel": "🌐 Sponsor Channel: Explore today's high-value offers and trending picks! 👉 View Now",
+      "daily": "🎁 Daily Benefits: Exclusive sponsor deals worth checking out. 👉 View Now",
+      "picks": "🚀 Sponsor Picks: Discover featured opportunities and popular interactive projects! 👉 View Now",
+      "special": "🔥 Special Offer: Limited-time sponsor promotions for LocalPDF users! 👉 View Now"
+    }
+  },
   "usedBy": {
     "title": "Used by companies and people working at"
   },
