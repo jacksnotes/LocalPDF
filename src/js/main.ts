@@ -286,7 +286,7 @@ const init = async () => {
 
   if (dom.toolGrid) {
     const categoryTabs = document.getElementById('category-tabs');
-    let activeCategoryIndex = -1; // -1 represents "All Tools"
+    const activeCategoryIndex = -1; // -1 represents "All Tools"
 
     function getToolId(tool: { href?: string; name: string }) {
       if (tool.href) {
@@ -295,7 +295,12 @@ const init = async () => {
       return tool.name.toLowerCase().replace(/\s+/g, '-');
     }
 
-    function createToolCardElement(tool: { href?: string; name: string; icon: string; subtitle?: string }) {
+    function createToolCardElement(tool: {
+      href?: string;
+      name: string;
+      icon: string;
+      subtitle?: string;
+    }) {
       let toolCard: HTMLDivElement | HTMLAnchorElement;
 
       if (tool.href) {
@@ -342,21 +347,35 @@ const init = async () => {
       }))
       .filter((category) => category.tools.length > 0);
 
-    function renderTools(searchTerm: string = '', activeCategory: string = 'all') {
+    function renderTools(
+      searchTerm: string = '',
+      activeCategory: string = 'all'
+    ) {
       dom.toolGrid.innerHTML = '';
 
       if (searchTerm) {
         const seenToolIds = new Set<string>();
         const resultsContainer = document.createElement('div');
-        resultsContainer.className = 'col-span-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5';
+        resultsContainer.className =
+          'col-span-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5';
 
         filteredCategories.forEach((category) => {
           category.tools.forEach((tool) => {
-            const toolName = (toolTranslationKeys[tool.name] ? t(`${toolTranslationKeys[tool.name]}.name`) : tool.name).toLowerCase();
-            const toolSubtitle = (toolTranslationKeys[tool.name] ? t(`${toolTranslationKeys[tool.name]}.subtitle`) : (tool.subtitle || '')).toLowerCase();
+            const toolName = (
+              toolTranslationKeys[tool.name]
+                ? t(`${toolTranslationKeys[tool.name]}.name`)
+                : tool.name
+            ).toLowerCase();
+            const toolSubtitle = (
+              toolTranslationKeys[tool.name]
+                ? t(`${toolTranslationKeys[tool.name]}.subtitle`)
+                : tool.subtitle || ''
+            ).toLowerCase();
             const toolId = getToolId(tool);
 
-            const isMatch = toolName.includes(searchTerm) || toolSubtitle.includes(searchTerm);
+            const isMatch =
+              toolName.includes(searchTerm) ||
+              toolSubtitle.includes(searchTerm);
             if (isMatch && !seenToolIds.has(toolId)) {
               seenToolIds.add(toolId);
               resultsContainer.appendChild(createToolCardElement(tool));
@@ -367,7 +386,8 @@ const init = async () => {
         if (seenToolIds.size === 0) {
           const noResults = document.createElement('div');
           noResults.className = 'col-span-full text-center py-12 text-gray-500';
-          noResults.textContent = t('tools.noResults') || 'No tools found matching your search.';
+          noResults.textContent =
+            t('tools.noResults') || 'No tools found matching your search.';
           dom.toolGrid.appendChild(noResults);
         } else {
           dom.toolGrid.appendChild(resultsContainer);
@@ -378,9 +398,10 @@ const init = async () => {
       }
 
       // Category filter: if activeCategory is not 'all', only show that category
-      const categoriesToRender = activeCategory === 'all'
-        ? filteredCategories
-        : filteredCategories.filter((c) => c.name === activeCategory);
+      const categoriesToRender =
+        activeCategory === 'all'
+          ? filteredCategories
+          : filteredCategories.filter((c) => c.name === activeCategory);
 
       const seenToolIds = new Set<string>();
 
@@ -422,15 +443,24 @@ const init = async () => {
     const categoryTabsNav = document.getElementById('category-tabs');
     if (categoryTabsNav) {
       categoryTabsNav.addEventListener('click', (e) => {
-        const btn = (e.target as HTMLElement).closest('.cat-tab') as HTMLButtonElement | null;
+        const btn = (e.target as HTMLElement).closest(
+          '.cat-tab'
+        ) as HTMLButtonElement | null;
         if (!btn) return;
         const cat = btn.dataset.category || 'all';
         currentCategory = cat;
         // Update active state
-        categoryTabsNav.querySelectorAll('.cat-tab').forEach((t) => t.classList.remove('active'));
+        categoryTabsNav
+          .querySelectorAll('.cat-tab')
+          .forEach((t) => t.classList.remove('active'));
         btn.classList.add('active');
-        const searchBar2 = document.getElementById('search-bar') as HTMLInputElement;
-        renderTools(searchBar2?.value.toLowerCase().trim() || '', currentCategory);
+        const searchBar2 = document.getElementById(
+          'search-bar'
+        ) as HTMLInputElement;
+        renderTools(
+          searchBar2?.value.toLowerCase().trim() || '',
+          currentCategory
+        );
       });
     }
 
@@ -488,23 +518,8 @@ const init = async () => {
     });
   }
 
-  // ---- New navbar: mobile hamburger ----
-  const mobileMenuBtn = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const menuIcon = document.getElementById('menu-icon');
-  const closeIcon = document.getElementById('close-icon');
-  if (mobileMenuBtn && mobileMenu) {
-    mobileMenuBtn.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('hidden') === false;
-      mobileMenuBtn.setAttribute('aria-expanded', isOpen.toString());
-      menuIcon?.classList.toggle('hidden', isOpen);
-      closeIcon?.classList.toggle('hidden', !isOpen);
-    });
-  }
-
   createIcons({ icons });
   console.log('Please share our tool and share the love!');
-
 
   const githubStarsElements = [
     document.getElementById('github-stars-desktop'),
@@ -755,30 +770,30 @@ const init = async () => {
 
   // Reserved shortcuts that commonly conflict with browser/OS functions
   const RESERVED_SHORTCUTS: Record<string, { mac?: string; windows?: string }> =
-  {
-    'mod+w': { mac: 'Closes tab', windows: 'Closes tab' },
-    'mod+t': { mac: 'Opens new tab', windows: 'Opens new tab' },
-    'mod+n': { mac: 'Opens new window', windows: 'Opens new window' },
-    'mod+shift+n': {
-      mac: 'Opens incognito window',
-      windows: 'Opens incognito window',
-    },
-    'mod+q': { mac: 'Quits application (cannot be overridden)' },
-    'mod+m': { mac: 'Minimizes window' },
-    'mod+h': { mac: 'Hides window' },
-    'mod+r': { mac: 'Reloads page', windows: 'Reloads page' },
-    'mod+shift+r': { mac: 'Hard reloads page', windows: 'Hard reloads page' },
-    'mod+l': { mac: 'Focuses address bar', windows: 'Focuses address bar' },
-    'mod+d': { mac: 'Bookmarks page', windows: 'Bookmarks page' },
-    'mod+shift+t': {
-      mac: 'Reopens closed tab',
-      windows: 'Reopens closed tab',
-    },
-    'mod+shift+w': { mac: 'Closes window', windows: 'Closes window' },
-    'mod+tab': { mac: 'Switches tabs', windows: 'Switches apps' },
-    'alt+f4': { windows: 'Closes window' },
-    'ctrl+tab': { mac: 'Switches tabs', windows: 'Switches tabs' },
-  };
+    {
+      'mod+w': { mac: 'Closes tab', windows: 'Closes tab' },
+      'mod+t': { mac: 'Opens new tab', windows: 'Opens new tab' },
+      'mod+n': { mac: 'Opens new window', windows: 'Opens new window' },
+      'mod+shift+n': {
+        mac: 'Opens incognito window',
+        windows: 'Opens incognito window',
+      },
+      'mod+q': { mac: 'Quits application (cannot be overridden)' },
+      'mod+m': { mac: 'Minimizes window' },
+      'mod+h': { mac: 'Hides window' },
+      'mod+r': { mac: 'Reloads page', windows: 'Reloads page' },
+      'mod+shift+r': { mac: 'Hard reloads page', windows: 'Hard reloads page' },
+      'mod+l': { mac: 'Focuses address bar', windows: 'Focuses address bar' },
+      'mod+d': { mac: 'Bookmarks page', windows: 'Bookmarks page' },
+      'mod+shift+t': {
+        mac: 'Reopens closed tab',
+        windows: 'Reopens closed tab',
+      },
+      'mod+shift+w': { mac: 'Closes window', windows: 'Closes window' },
+      'mod+tab': { mac: 'Switches tabs', windows: 'Switches apps' },
+      'alt+f4': { windows: 'Closes window' },
+      'ctrl+tab': { mac: 'Switches tabs', windows: 'Switches tabs' },
+    };
 
   function getReservedShortcutWarning(
     combo: string,
@@ -1024,8 +1039,8 @@ const init = async () => {
               await showWarningModal(
                 t('settings.warnings.alreadyInUse'),
                 `<strong>${escapeHtml(displayCombo)}</strong> ${t('settings.warnings.assignedTo')}<br><br>` +
-                `<em>"${escapeHtml(translatedToolName)}"</em><br><br>` +
-                t('settings.warnings.chooseDifferent'),
+                  `<em>"${escapeHtml(translatedToolName)}"</em><br><br>` +
+                  t('settings.warnings.chooseDifferent'),
                 false
               );
 
@@ -1044,9 +1059,9 @@ const init = async () => {
               const shouldProceed = await showWarningModal(
                 t('settings.warnings.reserved'),
                 `<strong>${escapeHtml(displayCombo)}</strong> ${t('settings.warnings.commonlyUsed')}<br><br>` +
-                `"<em>${escapeHtml(reservedWarning)}</em>"<br><br>` +
-                `${t('settings.warnings.unreliable')}<br><br>` +
-                t('settings.warnings.useAnyway')
+                  `"<em>${escapeHtml(reservedWarning)}</em>"<br><br>` +
+                  `${t('settings.warnings.unreliable')}<br><br>` +
+                  t('settings.warnings.useAnyway')
               );
 
               if (!shouldProceed) {
