@@ -1,8 +1,6 @@
-# Required security headers for SharedArrayBuffer (used by LibreOffice WASM)
-/*
-  Cross-Origin-Embedder-Policy: require-corp
-  Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Resource-Policy: cross-origin
+# Cloudflare Pages headers.
+# Do not set Cross-Origin-Embedder-Policy globally: third-party ad scripts do
+# not send CORP/COEP-compatible headers and will be blocked by the browser.
 
 # Sitemap and robots — correct MIME types
 /sitemap.xml
