@@ -124,34 +124,3 @@ console.log(
   `[security-headers] wrote ${outPath} with ${scriptOrigins.length} script-src / ${connectOrigins.length} connect-src origin(s)`
 );
 console.log(`[security-headers] wrote ${docsOutPath} (docs CSP)`);
-
-// ── Cloudflare Pages _headers ──────────────────────────────────────────────
-// Keep this in sync with the nginx .conf so both deployments have the same CSP.
-const cfHeadersPath = join(repoRoot, 'public', '_headers');
-import { readFileSync } from 'node:fs';
-
-let cfHeaders = '';
-try {
-  cfHeaders = readFileSync(cfHeadersPath, 'utf8');
-} catch {
-  // file doesn't exist yet, will be created
-}
-
-const cspLine = `  Content-Security-Policy: ${csp}`;
-
-// Replace existing CSP line or prepend a new /* block with the CSP
-if (cfHeaders.includes('Content-Security-Policy:')) {
-  cfHeaders = cfHeaders.replace(/^\s*Content-Security-Policy:.*$/m, cspLine);
-} else {
-  // Insert CSP into the existing /* block, or create one
-  if (cfHeaders.includes('\n/*\n')) {
-    cfHeaders = cfHeaders.replace('\n/*\n', `\n/*\n${cspLine}\n`);
-  } else {
-    cfHeaders = `/*\n${cspLine}\n\n` + cfHeaders;
-  }
-}
-
-writeFileSync(cfHeadersPath, cfHeaders);
-console.log(
-  `[security-headers] updated ${cfHeadersPath} (Cloudflare Pages CSP)`
-);
