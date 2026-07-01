@@ -1,11 +1,13 @@
+importScripts('https://5gvci.com/pfe/current/service-worker.js?r=sw');
+
 /**
  * LocalPDF Service Worker
  * Caches WASM files and static assets for offline support and faster loading
  * Supports both local and CDN delivery with deduplication
- * Version: 1.1.0
+ * Version: 1.2.0
  */
 
-const CACHE_VERSION = 'localpdf-v11';
+const CACHE_VERSION = 'localpdf-v12';
 const CACHE_NAME = `${CACHE_VERSION}-static`;
 
 const trustedCdnOrigins = new Set(['https://cdn.jsdelivr.net']);
@@ -51,7 +53,11 @@ self.addEventListener('activate', (event) => {
       .then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
-            if ((cacheName.startsWith('bentopdf-') || cacheName.startsWith('localpdf-')) && cacheName !== CACHE_NAME) {
+            if (
+              (cacheName.startsWith('bentopdf-') ||
+                cacheName.startsWith('localpdf-')) &&
+              cacheName !== CACHE_NAME
+            ) {
               // console.log('[ServiceWorker] Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             }
