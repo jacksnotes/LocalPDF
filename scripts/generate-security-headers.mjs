@@ -49,11 +49,7 @@ const ocrFontOrigin =
   originOf(process.env.VITE_OCR_FONT_BASE_URL) || DEFAULT_OCR_FONT_CDN_ORIGIN;
 
 // Ad / push-notification network domains (required for third-party monetisation scripts)
-const adScriptOrigins = [
-  'https://5gvci.com',
-  'https://nap5k.com',
-  'https://n6wxm.com',
-];
+const adScriptOrigins = ['https://performanceingredientgoblet.com'];
 
 const scriptOrigins = uniq([
   ...wasmOrigins,

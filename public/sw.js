@@ -1,5 +1,3 @@
-importScripts('https://5gvci.com/pfe/current/service-worker.js?r=sw');
-
 /**
  * LocalPDF Service Worker
  * Caches WASM files and static assets for offline support and faster loading
