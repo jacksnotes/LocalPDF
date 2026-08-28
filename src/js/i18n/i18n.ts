@@ -73,30 +73,6 @@ export const getLanguageFromUrl = (): SupportedLanguage => {
     return langMatch[1] as SupportedLanguage;
   }
 
-  // Check browser language preferences FIRST (before localStorage)
-  // This prevents stale localStorage values from overriding the user's actual browser language
-  if (typeof navigator !== 'undefined' && navigator.languages) {
-    for (const lang of navigator.languages) {
-      if (supportedLanguages.includes(lang as SupportedLanguage)) {
-        return lang as SupportedLanguage;
-      }
-
-      const primaryLang = lang.split('-')[0];
-      if (supportedLanguages.includes(primaryLang as SupportedLanguage)) {
-        return primaryLang as SupportedLanguage;
-      }
-    }
-  }
-
-  // localStorage as fallback (lower priority than browser language)
-  const storedLang = localStorage.getItem('i18nextLng');
-  if (
-    storedLang &&
-    supportedLanguages.includes(storedLang as SupportedLanguage)
-  ) {
-    return storedLang as SupportedLanguage;
-  }
-
   const envLang = import.meta.env?.VITE_DEFAULT_LANGUAGE;
   if (envLang && supportedLanguages.includes(envLang as SupportedLanguage)) {
     return envLang as SupportedLanguage;
@@ -175,16 +151,16 @@ export const changeLanguage = (lang: SupportedLanguage): void => {
     /^\/(en|ar|fr|es|de|zh|zh-TW|vi|tr|id|it|pt|nl|be|da|ko|sv|ru|ja|uk|sk)(\/.*)?$/
   );
   if (langPrefixMatch) {
-    pagePathWithoutLang = langPrefixMatch[2] || '/';
+    pagePathWithoutLang = langPrefixMatch[2] || '';
   }
 
-  if (!pagePathWithoutLang.startsWith('/')) {
-    pagePathWithoutLang = '/' + pagePathWithoutLang;
+  if (pagePathWithoutLang === '/') {
+    pagePathWithoutLang = '';
   }
 
   let newRelativePath: string;
   if (lang === 'en') {
-    newRelativePath = pagePathWithoutLang;
+    newRelativePath = pagePathWithoutLang || '/';
   } else {
     newRelativePath = `/${lang}${pagePathWithoutLang}`;
   }
@@ -197,6 +173,9 @@ export const changeLanguage = (lang: SupportedLanguage): void => {
   }
 
   newPath = newPath.replace(/\/+/g, '/');
+  if (newPath.length > 1 && newPath.endsWith('/')) {
+    newPath = newPath.replace(/\/+$/, '');
+  }
 
   const newUrl = newPath + window.location.search + window.location.hash;
   window.location.href = newUrl;
@@ -286,15 +265,18 @@ export const rewriteLinks = (): void => {
       }
     } else if (href === '' || href === 'index.html') {
       if (basePath && basePath !== '/') {
-        newHref = `${basePath}/${currentLang}/`;
+        newHref = `${basePath}/${currentLang}`;
       } else {
-        newHref = `/${currentLang}/`;
+        newHref = `/${currentLang}`;
       }
     } else {
       newHref = `/${currentLang}/${href}`;
     }
 
     newHref = newHref.replace(/([^:])\/+/g, '$1/');
+    if (newHref.length > 1 && newHref.endsWith('/')) {
+      newHref = newHref.replace(/\/+$/, '');
+    }
 
     link.setAttribute('href', newHref);
   });

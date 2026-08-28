@@ -103,17 +103,6 @@ function createLanguageMiddleware(isDev: boolean): Connect.NextHandleFunction {
       const lang = match[1];
       const rest = match[2] ?? '';
 
-      if (rest === '' && !pathname.endsWith('/')) {
-        const redirectUrl = basePath ? `${basePath}/${lang}/` : `/${lang}/`;
-        res.statusCode = 302;
-        res.setHeader(
-          'Location',
-          redirectUrl + (queryString ? `?${queryString}` : '')
-        );
-        res.end();
-        return;
-      }
-
       if (rest === '' || rest === '/') {
         if (isDev) {
           req.url = '/index.html' + (queryString ? `?${queryString}` : '');
@@ -465,7 +454,7 @@ function googleAnalyticsPlugin(): Plugin {
   </script>
 `;
       return html.replace('</head>', `${gaScript}</head>`);
-    }
+    },
   };
 }
 
