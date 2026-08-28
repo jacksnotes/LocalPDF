@@ -5,7 +5,7 @@
  * Version: 1.2.0
  */
 
-const CACHE_VERSION = 'localpdf-v12';
+const CACHE_VERSION = 'localpdf-v13';
 const CACHE_NAME = `${CACHE_VERSION}-static`;
 
 const trustedCdnOrigins = new Set(['https://cdn.jsdelivr.net']);
